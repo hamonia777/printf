@@ -1,93 +1,67 @@
 #include "printf.h"
+#include "libft/libft.h"
 
-#include <string.h>
-void	ft_putnbr_fd(int x, int fd)
+static int jw_format(const char *format,int i,va_list ap)
 {
-	long long	n;
-	char		s;
-
-	if (fd < 0)
-		return ;
-	n = (long long )x;
-	if (x < 0)
-	{
-		write(fd, "-", 1);
-		n = -n;
-	}
-	if (n >= 10)
-	{
-		ft_putnbr_fd((int)(n / 10), fd);
-		s = (char)((n % 10) + '0');
-		write(fd, &s, 1);
-	}
-	else if (n < 10 && n != 0)
-	{
-		s = (char)((n % 10) + '0');
-		write(fd, &s, 1);
-	}
-	s = '0';
-	if (n == 0)
-		write(fd, &s, 1);
-}
-void ft_printf_str(char * str)
-{
-    write(1,str,strlen(str));
-}
-static void jw_format(const char *format,int i,va_list ap)
-{
+    int count;
+    count = 0;
     if(format[i] == 's' || format[i] == 'c')
     {
-        ft_printf_str(va_arg(ap,char *));
+        count += ft_printf_str(va_arg(ap,char *));
     }
     else if(format[i] == 'p')
     {
     }
     else if(format[i] == 'd' || format[i] == 'i')
     {
-        ft_putnbr_fd(va_arg(ap,int),1);
+        count += ft_printf_nbr(va_arg(ap,int));
     }
     else if(format[i] == 'u')
     {
     }
     else if(format[i] == 'x' || format[i] == 'X')
     {
-    }        
+    }
+    else if(format[i] == '%')
+    {
+        count += write(1,"%",1);
+    }
+    return (count);
 }
 int ft_printf(const char *format, ...)
 {
     int i;
-    int j;
-    char *str;
+    int count;
     va_list ap;
 
     i = 0;
-    j = 0;
+    count = 0;
     va_start(ap,format);
-    str = malloc(strlen(format) * sizeof(char));
     while(format[i])
     {
         if(format[i] == '%')
         {
-            jw_format(format,++i,ap);
+            count += jw_format(format,++i,ap);
         }
         else
         {
-            str[j++] = format[i];
+            write(1,&format[i],1);
+            count++;
         }
         i++;
     }
-    write(1,str,strlen(str));
     va_end(ap);
-    return ((int)strlen(format));// 출력한 문자 수를 반환하도록 수정
+    return (count);// 출력한 문자 수를 반환하도록 수정
 }
 
-#include<stdio.h>
-int main()
-{
-    ft_printf("%dxx%s\n",111,"world\t");
-    // printf("%dxx%s",111,"world\n");
+// #include<stdio.h>
+// int main()
+// {
+//     int count = ft_printf("%s!%d","asdf",123);
+//     printf("\n |%d|",count);
+//     // int count =printf("\n");
 
-}
+// }
 //c는 문자 한개
 //s는 문자열
 //p는 포인터 주소 출력

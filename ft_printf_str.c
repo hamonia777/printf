@@ -1,7 +1,10 @@
 #include "printf.h"
 #include "libft/libft.h"
 
-void ft_printf_str(char * str)
+int ft_printf_str(char * str)
 {
-    write(1,str,ft_strlen(str));
+    int i;
+    i = 0;
+    i = write(1,str,ft_strlen(str));
+    return (i);
 }
