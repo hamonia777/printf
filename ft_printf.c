@@ -11,6 +11,7 @@ static int jw_format(const char *format,int i,va_list ap)
     }
     else if(format[i] == 'p')
     {
+        count += ft_printf_ptn(va_arg(ap,void *));
     }
     else if(format[i] == 'd' || format[i] == 'i')
     {
@@ -18,9 +19,11 @@ static int jw_format(const char *format,int i,va_list ap)
     }
     else if(format[i] == 'u')
     {
+        count += ft_printf_unsigned(va_arg(ap,unsigned int));
     }
     else if(format[i] == 'x' || format[i] == 'X')
     {
+        count += ft_printf_hex(va_arg(ap,int), format[i]);
     }
     else if(format[i] == '%')
     {
@@ -51,15 +54,18 @@ int ft_printf(const char *format, ...)
         i++;
     }
     va_end(ap);
-    return (count);// 출력한 문자 수를 반환하도록 수정
+    return (count);
 }
 
 // #include<stdio.h>
 // int main()
 // {
-//     int count = ft_printf("%s!%d","asdf",123);
-//     printf("\n |%d|",count);
-//     // int count =printf("\n");
+//     // printf("\n |%d|",count);
+//     int i = 10;
+//     int *p = &i;
+//     ft_printf("%p\n",i);
+//     int count =printf("%p",i);
+
 
 // }
 //c는 문자 한개
@@ -73,3 +79,6 @@ int ft_printf(const char *format, ...)
 //cspdiuxX
 //숫자
 //문자
+// 고려해야할것 실제 printf에 들어가는 정수형 타입 int형인지 만약 int형을 초과해버리면 어떤 일이 일어나는지 조사해야함
+// NULL포인터가 들어갔을 때 어떻게 동작하는지
+// 다 만들고 일단 예외를 생각해서 예외처리
