@@ -4,10 +4,17 @@
 static int jw_format(const char *format,int i,va_list ap)
 {
     int count;
+    char word;
+
     count = 0;
-    if(format[i] == 's' || format[i] == 'c')
+    if(format[i] == 's')
     {
         count += ft_printf_str(va_arg(ap,char *), format[i]);
+    }
+    else if(format[i] == 'c')
+    {
+        word = va_arg(ap,char);
+        count += write(1,&word,1);
     }
     else if(format[i] == 'p')
     {
@@ -27,7 +34,8 @@ static int jw_format(const char *format,int i,va_list ap)
     }
     else if(format[i] == '%')
     {
-        count += write(1,"%",1);
+        word = '%';
+        count += write(1,&word,1);
     }
     return (count);
 }
