@@ -1,7 +1,7 @@
 #include "libft/libft.h"
 #include "printf.h"
 
-size_t getCount_hex(int x)
+size_t getCount_hex(unsigned int x)
 {
     size_t count;
 
@@ -16,54 +16,47 @@ size_t getCount_hex(int x)
 char *ft_itoh(unsigned int x, char format)
 {
     int mod;
-    int i;
-    // unsigned int num;
+    int len;
     char *hex;
 
-    i = 0;
-    // num = x;
-    hex = malloc(getCount_hex(x) + 1);    
+    len = getCount_hex(x);
+    hex = malloc(getCount_hex(x) + 1);
+    hex[len--] = '\0';  
     while (x)
     {
         mod = x % 16;
         if(mod < 10)
-            hex[i++] = '0' + mod;
+            hex[len--] = '0' + mod;
         else
         {
             if(format == 'x')
             {
                 mod = mod - 10;
-                hex[i++] = 'a' + mod;
+                hex[len--] = 'a' + mod;
             }
             else
             {
                 mod = mod - 10;
-                hex[i++] = 'A' + mod;
+                hex[len--] = 'A' + mod;
             }
         }
         x = x / 16;
     }
-    hex[i] = '\0';
     return (hex);
 }
 
 int ft_printf_hex(int x,char format)
 {
     unsigned int num;
-    int i;
     int count;
     char *hex;
 
     count = 0;
+    if(x == 0)
+        count += write(1,"0",1);
     num = (unsigned int)x;
-    hex = malloc(getCount_hex(num) + 1);
     hex = ft_itoh(num,format);
-    i = (int)ft_strlen(hex);
-    while (i >= 0)
-    {
-        count += write(1,&hex[i],1);
-        i--;
-    }
+    count += write(1,hex,ft_strlen(hex));
     free(hex);
     return (count);
 }

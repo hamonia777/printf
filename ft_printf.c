@@ -7,7 +7,7 @@ static int jw_format(const char *format,int i,va_list ap)
     count = 0;
     if(format[i] == 's' || format[i] == 'c')
     {
-        count += ft_printf_str(va_arg(ap,char *));
+        count += ft_printf_str(va_arg(ap,char *), format[i]);
     }
     else if(format[i] == 'p')
     {
@@ -23,7 +23,7 @@ static int jw_format(const char *format,int i,va_list ap)
     }
     else if(format[i] == 'x' || format[i] == 'X')
     {
-        count += ft_printf_hex(va_arg(ap,int), format[i]);
+        count += ft_printf_hex(va_arg(ap,long), format[i]);
     }
     else if(format[i] == '%')
     {
@@ -63,10 +63,8 @@ int ft_printf(const char *format, ...)
 //     // printf("\n |%d|",count);
 //     int i = 10;
 //     int *p = &i;
-//     ft_printf("%p\n",i);
-//     int count =printf("%p",i);
-
-
+//     ft_printf("%p\n",p);
+//     int count =printf("%p",p);
 // }
 //c는 문자 한개
 //s는 문자열

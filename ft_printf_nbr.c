@@ -63,5 +63,6 @@ int ft_printf_nbr(int nbr)
     count = 0;
     str = ft_itoa(nbr);
     count += write(1,str,ft_strlen(str));
+	free(str);
     return (count);
 }

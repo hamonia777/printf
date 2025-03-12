@@ -40,8 +40,8 @@ int ft_printf_unsigned(unsigned int x)
     int count;
 
     count = 0;
-    str = malloc(getCount_unsigned(x) + 1);
     str = ft_itoa_unsigned(x);
     count += write(1,str,ft_strlen(str));
+    free(str);
     return (count);
 }
