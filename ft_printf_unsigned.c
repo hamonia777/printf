@@ -33,6 +33,8 @@ char	*ft_itoa_unsigned(unsigned int x)
 
 	len = getcount_unsigned(x);
 	str = malloc(len + 1);
+	if(!str)
+		return (NULL);
 	str[len--] = '\0';
 	if (x == 0)
 	{

@@ -34,6 +34,8 @@ char	*ft_itoh_point(uintptr_t x)
 
 	len = getcount_point(x);
 	hex = malloc(len + 1);
+    if(!hex)
+        return (NULL);
 	hex[len--] = '\0';
 	while (x)
 	{

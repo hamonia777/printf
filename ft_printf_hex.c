@@ -34,6 +34,8 @@ char	*ft_itoh(unsigned int x, char format)
 
 	len = getcount_hex(x);
 	hex = malloc(getcount_hex(x) + 1);
+	if(!hex)
+		return (NULL);
 	hex[len--] = '\0';
 	while (x)
 	{
