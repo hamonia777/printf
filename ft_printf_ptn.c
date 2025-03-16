@@ -6,14 +6,14 @@
 /*   By: jinwpark <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:45:04 by jinwpark          #+#    #+#             */
-/*   Updated: 2025/03/13 20:33:41 by jinwpark         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:08:03 by jinwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 #include "libft/libft.h"
 
-size_t	getcount_point(uintptr_t x)
+static size_t	getcount_point(unsigned long x)
 {
 	size_t	count;
 
@@ -26,7 +26,7 @@ size_t	getcount_point(uintptr_t x)
 	return (count);
 }
 
-char	*ft_itoh_point(uintptr_t x)
+static char	*ft_itoh_point(unsigned long x)
 {
 	int		mod;
 	int		len;
@@ -34,8 +34,8 @@ char	*ft_itoh_point(uintptr_t x)
 
 	len = getcount_point(x);
 	hex = malloc(len + 1);
-    if(!hex)
-        return (NULL);
+	if (!hex)
+		return (NULL);
 	hex[len--] = '\0';
 	while (x)
 	{
@@ -54,12 +54,12 @@ char	*ft_itoh_point(uintptr_t x)
 
 int	ft_printf_ptn(void *x)
 {
-	uintptr_t		addr;
-	int				count;
-	char			*str;
+	unsigned long		addr;
+	int					count;
+	char				*str;
 
 	count = 0;
-	addr = (uintptr_t)x;
+	addr = (unsigned long)x;
 	if (x == NULL)
 	{
 		count += write(1, "(nil)", 5);

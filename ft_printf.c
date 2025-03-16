@@ -6,17 +6,17 @@
 /*   By: jinwpark <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 20:12:20 by jinwpark          #+#    #+#             */
-/*   Updated: 2025/03/13 20:30:56 by jinwpark         ###   ########.fr       */
+/*   Updated: 2025/03/14 22:34:06 by jinwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 #include "libft/libft.h"
 
 static int	jw_format(const char *format, int i, va_list ap)
 {
-	int		count;
-	char	word;
+	unsigned char	word;
+	int				count;
 
 	count = 0;
 	if (format[i] == 's')
@@ -33,7 +33,7 @@ static int	jw_format(const char *format, int i, va_list ap)
 	else if (format[i] == 'u')
 		count += ft_printf_unsigned(va_arg(ap, unsigned int));
 	else if (format[i] == 'x' || format[i] == 'X')
-		count += ft_printf_hex(va_arg(ap, long), format[i]);
+		count += ft_printf_hex(va_arg(ap, unsigned int), format[i]);
 	else if (format[i] == '%')
 		count += write(1, "%", 1);
 	return (count);

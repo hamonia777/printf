@@ -6,18 +6,20 @@
 /*   By: jinwpark <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:56:59 by jinwpark          #+#    #+#             */
-/*   Updated: 2025/03/13 20:34:28 by jinwpark         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:09:29 by jinwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 #include "libft/libft.h"
 
-size_t	getcount_unsigned(unsigned int x)
+static size_t	getcount_unsigned(unsigned int x)
 {
 	size_t	count;
 
 	count = 0;
+	if (x == 0)
+		return (1);
 	while (x)
 	{
 		x /= 10;
@@ -26,14 +28,14 @@ size_t	getcount_unsigned(unsigned int x)
 	return (count);
 }
 
-char	*ft_itoa_unsigned(unsigned int x)
+static char	*ft_itoa_unsigned(unsigned int x)
 {
 	size_t		len;
 	char		*str;
 
 	len = getcount_unsigned(x);
 	str = malloc(len + 1);
-	if(!str)
+	if (!str)
 		return (NULL);
 	str[len--] = '\0';
 	if (x == 0)

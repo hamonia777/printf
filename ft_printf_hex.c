@@ -6,14 +6,14 @@
 /*   By: jinwpark <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:53:48 by jinwpark          #+#    #+#             */
-/*   Updated: 2025/03/13 20:32:08 by jinwpark         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:10:31 by jinwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include "printf.h"
+#include "ft_printf.h"
 
-size_t	getcount_hex(unsigned int x)
+static size_t	getcount_hex(unsigned int x)
 {
 	size_t	count;
 
@@ -26,7 +26,7 @@ size_t	getcount_hex(unsigned int x)
 	return (count);
 }
 
-char	*ft_itoh(unsigned int x, char format)
+static char	*ft_itoh(unsigned int x, char format)
 {
 	int		mod;
 	int		len;
@@ -34,7 +34,7 @@ char	*ft_itoh(unsigned int x, char format)
 
 	len = getcount_hex(x);
 	hex = malloc(getcount_hex(x) + 1);
-	if(!hex)
+	if (!hex)
 		return (NULL);
 	hex[len--] = '\0';
 	while (x)
@@ -54,17 +54,15 @@ char	*ft_itoh(unsigned int x, char format)
 	return (hex);
 }
 
-int	ft_printf_hex(int x, char format)
+int	ft_printf_hex(unsigned int x, char format)
 {
-	unsigned int		num;
 	char				*hex;
 	int					count;
 
 	count = 0;
 	if (x == 0)
 		count += write(1, "0", 1);
-	num = (unsigned int)x;
-	hex = ft_itoh(num, format);
+	hex = ft_itoh(x, format);
 	count += write(1, hex, ft_strlen(hex));
 	free(hex);
 	return (count);
